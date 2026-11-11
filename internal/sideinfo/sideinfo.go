@@ -30,6 +30,9 @@ type FullReader interface {
 // A SideInfo is MPEG1 Layer 3 Side Information.
 // [2][2] means [gr][ch].
 type SideInfo struct {
+	// Decoder-owned bytes avoid allocating the side-information block per frame.
+	buf [32]byte
+
 	MainDataBegin    int       // 9 bits
 	PrivateBits      int       // 3 bits in mono, 5 in stereo
 	Scfsi            [2][4]int // 1 bit
@@ -79,8 +82,13 @@ func Read(source FullReader, header frameheader.FrameHeader, si *SideInfo) (*Sid
 	if header.ProtectionBit() == 0 {
 		main_data_size -= 2
 	}
-	// Read sideinfo from bitstream into buffer used by Bits()
-	buf := make([]byte, sideinfo_size)
+	if si == nil {
+		si = &SideInfo{}
+	} else {
+		*si = SideInfo{}
+	}
+	// Clear the parsed fields before reading into the same owned byte buffer.
+	buf := si.buf[:sideinfo_size]
 	n, err := source.ReadFull(buf)
 	if n < sideinfo_size {
 		if err == io.EOF {
@@ -95,11 +103,6 @@ func Read(source FullReader, header frameheader.FrameHeader, si *SideInfo) (*Sid
 
 	// Parse audio data
 	// Pointer to where we should start reading main data
-	if si == nil {
-		si = &SideInfo{}
-	} else {
-		*si = SideInfo{}
-	}
 	si.MainDataBegin = s.Bits(bitsToRead[0])
 	// Get private bits. Not used for anything.
 	if header.Mode() == consts.ModeSingleChannel {
