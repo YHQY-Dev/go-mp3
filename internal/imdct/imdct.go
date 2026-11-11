@@ -16,6 +16,8 @@ package imdct
 
 import (
 	"math"
+
+	"github.com/hajimehoshi/go-mp3/internal/dsp"
 )
 
 var imdctWinData = [4][36]float32{}
@@ -56,24 +58,24 @@ func init() {
 	}
 }
 
-var cosN12 = [6][12]float32{}
+var cosN12 [3][6][4]float32
 
 func init() {
 	const N = 12
 	for i := 0; i < 6; i++ {
 		for j := 0; j < 12; j++ {
-			cosN12[i][j] = float32(math.Cos(math.Pi / (2 * N) * (2*float64(j) + 1 + N/2) * (2*float64(i) + 1)))
+			cosN12[j/4][i][j%4] = float32(math.Cos(math.Pi / (2 * N) * (2*float64(j) + 1 + N/2) * (2*float64(i) + 1)))
 		}
 	}
 }
 
-var cosN36 = [18][36]float32{}
+var cosN36 [9][18][4]float32
 
 func init() {
 	const N = 36
 	for i := 0; i < 18; i++ {
 		for j := 0; j < 36; j++ {
-			cosN36[i][j] = float32(math.Cos(math.Pi / (2 * N) * (2*float64(j) + 1 + N/2) * (2*float64(i) + 1)))
+			cosN36[j/4][i][j%4] = float32(math.Cos(math.Pi / (2 * N) * (2*float64(j) + 1 + N/2) * (2*float64(i) + 1)))
 		}
 	}
 }
@@ -86,23 +88,32 @@ func Win(in []float32, blockType int, out *[36]float32) {
 		iwd := imdctWinData[blockType]
 		const N = 12
 		for i := 0; i < 3; i++ {
-			for p := 0; p < N; p++ {
-				sum := float32(0.0)
+			for p := 0; p < N; p += 4 {
+				var a, b, c, d float32
 				for m := 0; m < N/2; m++ {
-					sum += in[i+3*m] * cosN12[m][p]
+					x, w := in[i+3*m], &cosN12[p/4][m]
+					a += float32(x * w[0])
+					b += float32(x * w[1])
+					c += float32(x * w[2])
+					d += float32(x * w[3])
 				}
-				out[6*i+p+6] += sum * iwd[p]
+				o := 6*i + p + 6
+				out[o] += float32(a * iwd[p])
+				out[o+1] += float32(b * iwd[p+1])
+				out[o+2] += float32(c * iwd[p+2])
+				out[o+3] += float32(d * iwd[p+3])
 			}
 		}
 		return
 	}
 	const N = 36
 	iwd := imdctWinData[blockType]
-	for p := 0; p < N; p++ {
-		sum := float32(0.0)
-		for m := 0; m < N/2; m++ {
-			sum += in[m] * cosN36[m][p]
-		}
-		out[p] = sum * iwd[p]
+	for p := 0; p < N; p += 4 {
+		// SIMD lanes are independent outputs, never partial sums of one output.
+		dsp.Dot4(&in[0], 1, &cosN36[p/4][0][0], N/2, &out[p])
+		out[p] *= iwd[p]
+		out[p+1] *= iwd[p+1]
+		out[p+2] *= iwd[p+2]
+		out[p+3] *= iwd[p+3]
 	}
 }

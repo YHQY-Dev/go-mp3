@@ -21,6 +21,7 @@ import (
 
 	"github.com/hajimehoshi/go-mp3/internal/bits"
 	"github.com/hajimehoshi/go-mp3/internal/consts"
+	"github.com/hajimehoshi/go-mp3/internal/dsp"
 	"github.com/hajimehoshi/go-mp3/internal/frameheader"
 	"github.com/hajimehoshi/go-mp3/internal/imdct"
 	"github.com/hajimehoshi/go-mp3/internal/maindata"
@@ -46,6 +47,7 @@ type Frame struct {
 	mainDataBits *bits.Bits
 	store        [2][32][18]float32
 	v_vec        [2][1024]float32
+	vPos         [2]int
 }
 
 type FullReader interface {
@@ -146,7 +148,7 @@ func (f *Frame) Decode(out []byte) []byte {
 	return out
 }
 
-func (f *Frame) requantizeProcessLong(gr, ch, is_pos, sfb int) {
+func (f *Frame) requantizeGainLong(gr, ch, sfb int) float64 {
 	sf_mult := 0.5
 	if f.sideInfo.ScalefacScale[gr][ch] != 0 {
 		sf_mult = 1.0
@@ -154,17 +156,10 @@ func (f *Frame) requantizeProcessLong(gr, ch, is_pos, sfb int) {
 	pf_x_pt := float64(f.sideInfo.Preflag[gr][ch]) * pretab[sfb]
 	idx := -(sf_mult * (float64(f.mainData.ScalefacL[gr][ch][sfb]) + pf_x_pt)) +
 		0.25*(float64(f.sideInfo.GlobalGain[gr][ch])-210)
-	tmp1 := math.Pow(2.0, idx)
-	tmp2 := 0.0
-	if f.mainData.Is[gr][ch][is_pos] < 0.0 {
-		tmp2 = -powtab34[int(-f.mainData.Is[gr][ch][is_pos])]
-	} else {
-		tmp2 = powtab34[int(f.mainData.Is[gr][ch][is_pos])]
-	}
-	f.mainData.Is[gr][ch][is_pos] = float32(tmp1 * tmp2)
+	return requantizeGain(idx)
 }
 
-func (f *Frame) requantizeProcessShort(gr, ch, is_pos, sfb, win int) {
+func (f *Frame) requantizeGainShort(gr, ch, sfb, win int) float64 {
 	sf_mult := 0.5
 	if f.sideInfo.ScalefacScale[gr][ch] != 0 {
 		sf_mult = 1.0
@@ -172,14 +167,7 @@ func (f *Frame) requantizeProcessShort(gr, ch, is_pos, sfb, win int) {
 	idx := -(sf_mult * float64(f.mainData.ScalefacS[gr][ch][sfb][win])) +
 		0.25*(float64(f.sideInfo.GlobalGain[gr][ch])-210.0-
 			8.0*float64(f.sideInfo.SubblockGain[gr][ch][win]))
-	tmp1 := math.Pow(2.0, idx)
-	tmp2 := 0.0
-	if f.mainData.Is[gr][ch][is_pos] < 0 {
-		tmp2 = -powtab34[int(-f.mainData.Is[gr][ch][is_pos])]
-	} else {
-		tmp2 = powtab34[int(f.mainData.Is[gr][ch][is_pos])]
-	}
-	f.mainData.Is[gr][ch][is_pos] = float32(tmp1 * tmp2)
+	return requantizeGain(idx)
 }
 
 func getSfBandIndicesArray(header *frameheader.FrameHeader) ([]int, []int) {
@@ -190,7 +178,10 @@ func getSfBandIndicesArray(header *frameheader.FrameHeader) ([]int, []int) {
 	return sfBandIndicesLong, sfBandIndicesShort
 }
 
+// Cache gains per band rather than recalculating them for each frequency line.
+// This follows asvedr/go-mp3's loop-invariant gain optimization.
 func (f *Frame) requantize(gr int, ch int) {
+	is := &f.mainData.Is[gr][ch]
 	sfBandIndicesLong, sfBandIndicesShort := getSfBandIndicesArray(&f.header)
 	// Determine type of block to process
 	if f.sideInfo.WinSwitchFlag[gr][ch] == 1 && f.sideInfo.BlockType[gr][ch] == 2 { // Short blocks
@@ -200,12 +191,14 @@ func (f *Frame) requantize(gr int, ch int) {
 			// First process the 2 long block subbands at the start
 			sfb := 0
 			next_sfb := sfBandIndicesLong[sfb+1]
+			gain := f.requantizeGainLong(gr, ch, sfb)
 			for i := 0; i < 36; i++ {
 				if i == next_sfb {
 					sfb++
 					next_sfb = sfBandIndicesLong[sfb+1]
+					gain = f.requantizeGainLong(gr, ch, sfb)
 				}
-				f.requantizeProcessLong(gr, ch, i, sfb)
+				requantizeSample(is, i, gain)
 			}
 			// And next the remaining,non-zero,bands which uses short blocks
 			sfb = 3
@@ -222,10 +215,8 @@ func (f *Frame) requantize(gr int, ch int) {
 						sfBandIndicesShort[sfb]
 				}
 				for win := 0; win < 3; win++ {
-					for j := 0; j < win_len; j++ {
-						f.requantizeProcessShort(gr, ch, i, sfb, win)
-						i++
-					}
+					f.requantizeShortWindow(gr, ch, i, win_len, sfb, win)
+					i += win_len
 				}
 
 			}
@@ -243,22 +234,22 @@ func (f *Frame) requantize(gr int, ch int) {
 						sfBandIndicesShort[sfb]
 				}
 				for win := 0; win < 3; win++ {
-					for j := 0; j < win_len; j++ {
-						f.requantizeProcessShort(gr, ch, i, sfb, win)
-						i++
-					}
+					f.requantizeShortWindow(gr, ch, i, win_len, sfb, win)
+					i += win_len
 				}
 			}
 		}
 	} else { // Only long blocks
 		sfb := 0
 		next_sfb := sfBandIndicesLong[sfb+1]
+		gain := f.requantizeGainLong(gr, ch, sfb)
 		for i := 0; i < int(f.sideInfo.Count1[gr][ch]); i++ {
 			if i == next_sfb {
 				sfb++
 				next_sfb = sfBandIndicesLong[sfb+1]
+				gain = f.requantizeGainLong(gr, ch, sfb)
 			}
-			f.requantizeProcessLong(gr, ch, i, sfb)
+			requantizeSample(is, i, gain)
 		}
 	}
 }
@@ -492,12 +483,12 @@ func (f *Frame) frequencyInversion(gr int, ch int) {
 	}
 }
 
-var synthNWin = [64][32]float32{}
+var synthRows [16][32][4]float32
 
 func init() {
 	for i := 0; i < 64; i++ {
 		for j := 0; j < 32; j++ {
-			synthNWin[i][j] =
+			synthRows[i/4][j][i%4] =
 				float32(math.Cos(float64((16+i)*(2*j+1)) * (math.Pi / 64.0)))
 		}
 	}
@@ -635,37 +626,23 @@ var synthDtbl = [512]float32{
 }
 
 func (f *Frame) subbandSynthesis(gr int, ch int, out []byte) {
-	u_vec := make([]float32, 512)
-	s_vec := make([]float32, 32)
+	var s_vec, windowed [32]float32
 
 	nch := f.header.NumberOfChannels()
 	// Setup the n_win windowing vector and the v_vec intermediate vector
 	for ss := 0; ss < 18; ss++ { // Loop through 18 samples in 32 subbands
-		copy(f.v_vec[ch][64:1024], f.v_vec[ch][0:1024-64])
-		d := f.mainData.Is[gr][ch]
+		// Circular history avoids shifting 960 floats at every synthesis step.
+		f.vPos[ch] = (f.vPos[ch] + 1024 - 64) & 1023
+		pos := f.vPos[ch]
+		d := &f.mainData.Is[gr][ch]
 		for i := 0; i < 32; i++ { // Copy next 32 time samples to a temp vector
 			s_vec[i] = d[i*18+ss]
 		}
-		for i := 0; i < 64; i++ { // Matrix multiply input with n_win[][] matrix
-			sum := float32(0)
-			for j := 0; j < 32; j++ {
-				sum += synthNWin[i][j] * s_vec[j]
-			}
-			f.v_vec[ch][i] = sum
+		for i := 0; i < 64; i += 4 {
+			dsp.Dot4(&s_vec[0], 1, &synthRows[i/4][0][0], 32, &f.v_vec[ch][pos+i])
 		}
-		v := f.v_vec[ch]
-		for i := 0; i < 512; i += 64 { // Build the U vector
-			copy(u_vec[i:i+32], v[(i<<1):(i<<1)+32])
-			copy(u_vec[i+32:i+64], v[(i<<1)+96:(i<<1)+128])
-		}
-		for i := 0; i < 512; i++ { // Window by u_vec[i] with synthDtbl[i]
-			u_vec[i] *= synthDtbl[i]
-		}
-		for i := 0; i < 32; i++ { // Calc 32 samples,store in outdata vector
-			sum := float32(0)
-			for j := 0; j < 512; j += 32 {
-				sum += u_vec[j+i]
-			}
+		dsp.Window(&f.v_vec[ch], pos, &synthDtbl, &windowed)
+		for i, sum := range windowed {
 			// sum now contains time sample 32*ss+i. Convert to 16-bit signed int
 			samp := int(sum * 32767)
 			if samp > 32767 {
