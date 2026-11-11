@@ -1,0 +1,20 @@
+name: decoder-regressions
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - run: go test . ./internal/...
+      - run: go test -tags purego . ./internal/...
+      - run: go vet . ./internal/...
+      - run: go test -race . ./internal/...
