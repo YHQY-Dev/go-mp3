@@ -32,6 +32,8 @@ type Decoder struct {
 	length        int64
 	frameStarts   []int64
 	buf           []byte
+	pcm           []byte // reusable single-frame decode destination
+	storage       []byte // base of queued PCM; buf may point into its suffix
 	frame         *frame.Frame
 	pos           int64
 	bytesPerFrame int64
@@ -50,7 +52,16 @@ func (d *Decoder) readFrame() error {
 		}
 		return err
 	}
-	d.buf = append(d.buf, d.frame.Decode()...)
+	d.pcm = d.frame.Decode(d.pcm)
+	// Normally the queue is empty; Seek can append a second preroll frame.
+	if len(d.buf) == 0 {
+		d.buf = d.storage[:0]
+	} else {
+		n := copy(d.storage, d.buf)
+		d.buf = d.storage[:n]
+	}
+	d.buf = append(d.buf, d.pcm...)
+	d.storage = d.buf[:cap(d.buf)]
 	return nil
 }
 

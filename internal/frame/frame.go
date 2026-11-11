@@ -94,20 +94,21 @@ func Read(source FullReader, position int64, prev *Frame) (frame *Frame, startPo
 	if prev != nil {
 		prevM = prev.mainDataBits
 	}
-	md, mdb, err := maindata.Read(source, prevM, h, si)
+	var reusable *maindata.MainData
+	if prev != nil {
+		reusable = prev.mainData
+	}
+	md, mdb, err := maindata.Read(source, prevM, h, si, reusable)
 	if err != nil {
 		return nil, 0, err
 	}
-	nf := &Frame{
-		header:       h,
-		sideInfo:     si,
-		mainData:     md,
-		mainDataBits: mdb,
+	// Only the decoder owns this frame; retain its synthesis history in place.
+	nf := prev
+	if nf == nil {
+		nf = &Frame{}
 	}
-	if prev != nil {
-		nf.store = prev.store
-		nf.v_vec = prev.v_vec
-	}
+	nf.header, nf.sideInfo = h, si
+	nf.mainData, nf.mainDataBits = md, mdb
 	return nf, pos, nil
 }
 
@@ -115,8 +116,15 @@ func (f *Frame) SamplingFrequency() (int, error) {
 	return f.header.SamplingFrequencyValue()
 }
 
-func (f *Frame) Decode() []byte {
-	out := make([]byte, f.header.BytesPerFrame())
+func (f *Frame) Decode(out []byte) []byte {
+	n := f.header.BytesPerFrame()
+	if cap(out) < n {
+		out = make([]byte, n)
+	}
+	out = out[:n]
+	for i := range out {
+		out[i] = 0
+	}
 	nch := f.header.NumberOfChannels()
 	for gr := 0; gr < f.header.Granules(); gr++ {
 		for ch := 0; ch < nch; ch++ {
@@ -449,6 +457,7 @@ func (f *Frame) antialias(gr int, ch int) {
 }
 
 func (f *Frame) hybridSynthesis(gr int, ch int) {
+	var rawout [36]float32
 	// Loop through all 32 subbands
 	for sb := 0; sb < 32; sb++ {
 		// Determine blocktype for this subband
@@ -462,7 +471,7 @@ func (f *Frame) hybridSynthesis(gr int, ch int) {
 		for i := range in {
 			in[i] = f.mainData.Is[gr][ch][sb*18+i]
 		}
-		rawout := imdct.Win(in, bt)
+		imdct.Win(in, bt, &rawout)
 		// Overlapp add with stored vector into main_data vector
 		for i := 0; i < 18; i++ {
 			f.mainData.Is[gr][ch][sb*18+i] = rawout[i] + f.store[ch][sb][i]

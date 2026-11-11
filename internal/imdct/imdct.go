@@ -78,8 +78,10 @@ func init() {
 	}
 }
 
-func Win(in []float32, blockType int) []float32 {
-	out := make([]float32, 36)
+func Win(in []float32, blockType int, out *[36]float32) {
+	for i := range out {
+		out[i] = 0
+	}
 	if blockType == 2 {
 		iwd := imdctWinData[blockType]
 		const N = 12
@@ -92,7 +94,7 @@ func Win(in []float32, blockType int) []float32 {
 				out[6*i+p+6] += sum * iwd[p]
 			}
 		}
-		return out
+		return
 	}
 	const N = 36
 	iwd := imdctWinData[blockType]
@@ -103,5 +105,4 @@ func Win(in []float32, blockType int) []float32 {
 		}
 		out[p] = sum * iwd[p]
 	}
-	return out
 }

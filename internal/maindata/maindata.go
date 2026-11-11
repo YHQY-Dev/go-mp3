@@ -79,7 +79,7 @@ func initSlen() (nSlen2 [512]int) {
 	return
 }
 
-func Read(source FullReader, prev *bits.Bits, header frameheader.FrameHeader, sideInfo *sideinfo.SideInfo) (*MainData, *bits.Bits, error) {
+func Read(source FullReader, prev *bits.Bits, header frameheader.FrameHeader, sideInfo *sideinfo.SideInfo, md *MainData) (*MainData, *bits.Bits, error) {
 	nch := header.NumberOfChannels()
 	// Calculate header audio data size
 	framesize, err := header.FrameSize()
@@ -107,17 +107,20 @@ func Read(source FullReader, prev *bits.Bits, header frameheader.FrameHeader, si
 		return nil, nil, err
 	}
 
-	if header.LowSamplingFrequency() == 1 {
-		return getScaleFactorsMpeg2(m, header, sideInfo)
+	if md == nil {
+		md = &MainData{}
+	} else {
+		*md = MainData{}
 	}
-	return getScaleFactorsMpeg1(nch, m, header, sideInfo)
+	if header.LowSamplingFrequency() == 1 {
+		return getScaleFactorsMpeg2(m, header, sideInfo, md)
+	}
+	return getScaleFactorsMpeg1(nch, m, header, sideInfo, md)
 }
 
-func getScaleFactorsMpeg2(m *bits.Bits, header frameheader.FrameHeader, sideInfo *sideinfo.SideInfo) (*MainData, *bits.Bits, error) {
+func getScaleFactorsMpeg2(m *bits.Bits, header frameheader.FrameHeader, sideInfo *sideinfo.SideInfo, md *MainData) (*MainData, *bits.Bits, error) {
 
 	nch := header.NumberOfChannels()
-
-	md := &MainData{}
 
 	for ch := 0; ch < nch; ch++ {
 		part_2_start := m.BitPos()
@@ -177,8 +180,7 @@ func getScaleFactorsMpeg2(m *bits.Bits, header frameheader.FrameHeader, sideInfo
 	return md, m, nil
 }
 
-func getScaleFactorsMpeg1(nch int, m *bits.Bits, header frameheader.FrameHeader, sideInfo *sideinfo.SideInfo) (*MainData, *bits.Bits, error) {
-	md := &MainData{}
+func getScaleFactorsMpeg1(nch int, m *bits.Bits, header frameheader.FrameHeader, sideInfo *sideinfo.SideInfo, md *MainData) (*MainData, *bits.Bits, error) {
 	for gr := 0; gr < 2; gr++ {
 		for ch := 0; ch < nch; ch++ {
 			part_2_start := m.BitPos()

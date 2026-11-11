@@ -15,12 +15,14 @@
 package mp3
 
 import (
+	"bufio"
 	"errors"
 	"io"
 )
 
 type source struct {
 	reader io.Reader
+	buffer *bufio.Reader
 	buf    []byte
 	pos    int64
 }
@@ -31,9 +33,15 @@ func (s *source) Seek(position int64, whence int) (int64, error) {
 		return 0, errors.New("mp3: source must be io.Seeker")
 	}
 	s.buf = nil
+	if whence == io.SeekCurrent && s.buffer != nil {
+		position -= int64(s.buffer.Buffered())
+	}
 	n, err := seeker.Seek(position, whence)
 	if err != nil {
 		return 0, err
+	}
+	if s.buffer != nil {
+		s.buffer.Reset(s.reader)
 	}
 	s.pos = n
 	return n, nil
@@ -108,7 +116,10 @@ func (s *source) ReadFull(buf []byte) (int, error) {
 		}
 	}
 
-	n, err := io.ReadFull(s.reader, buf[read:])
+	if s.buffer == nil {
+		s.buffer = bufio.NewReaderSize(s.reader, 32<<10)
+	}
+	n, err := io.ReadFull(s.buffer, buf[read:])
 	if err != nil {
 		// Allow if all data can't be read. This is common.
 		if err == io.ErrUnexpectedEOF {
