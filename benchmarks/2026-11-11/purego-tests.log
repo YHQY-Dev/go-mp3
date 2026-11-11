@@ -1,0 +1,10 @@
+ok  	github.com/hajimehoshi/go-mp3	23.697s
+ok  	github.com/hajimehoshi/go-mp3/internal/bits	8.241s
+?   	github.com/hajimehoshi/go-mp3/internal/consts	[no test files]
+ok  	github.com/hajimehoshi/go-mp3/internal/dsp	8.248s
+ok  	github.com/hajimehoshi/go-mp3/internal/frame	8.275s
+?   	github.com/hajimehoshi/go-mp3/internal/frameheader	[no test files]
+ok  	github.com/hajimehoshi/go-mp3/internal/huffman	8.260s
+ok  	github.com/hajimehoshi/go-mp3/internal/imdct	8.259s
+?   	github.com/hajimehoshi/go-mp3/internal/maindata	[no test files]
+?   	github.com/hajimehoshi/go-mp3/internal/sideinfo	[no test files]

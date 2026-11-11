@@ -1,0 +1,6 @@
+goos: windows
+goarch: amd64
+pkg: study
+cpu: Intel(R) Core(TM) i5-14600K
+BenchmarkDecode-20    	       3	 166848900 ns/op	   2.70 MB/s	 4908586 B/op	   27640 allocs/op
+PASS

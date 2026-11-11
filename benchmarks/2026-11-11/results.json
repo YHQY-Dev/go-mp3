@@ -1,0 +1,442 @@
+[
+  {
+    "file": "pink90.mp3",
+    "round": 1,
+    "name": "baseline",
+    "ns": 688805280,
+    "bytes": 197795672,
+    "allocs": 475843
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 1,
+    "name": "previous",
+    "ns": 780563360,
+    "bytes": 11616244,
+    "allocs": 20708
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 1,
+    "name": "ours",
+    "ns": 185957820,
+    "bytes": 217480,
+    "allocs": 6928
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 1,
+    "name": "asvedr",
+    "ns": 268213520,
+    "bytes": 179704,
+    "allocs": 6925
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 1,
+    "name": "llehouerou",
+    "ns": 199287240,
+    "bytes": 116849,
+    "allocs": 3466
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 2,
+    "name": "previous",
+    "ns": 737003180,
+    "bytes": 11616296,
+    "allocs": 20708
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 2,
+    "name": "ours",
+    "ns": 184862300,
+    "bytes": 217483,
+    "allocs": 6928
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 2,
+    "name": "asvedr",
+    "ns": 267325320,
+    "bytes": 179707,
+    "allocs": 6925
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 2,
+    "name": "llehouerou",
+    "ns": 201167400,
+    "bytes": 116849,
+    "allocs": 3466
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 2,
+    "name": "baseline",
+    "ns": 696485840,
+    "bytes": 197795755,
+    "allocs": 475843
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 3,
+    "name": "ours",
+    "ns": 184720680,
+    "bytes": 217480,
+    "allocs": 6928
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 3,
+    "name": "asvedr",
+    "ns": 272305620,
+    "bytes": 179707,
+    "allocs": 6925
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 3,
+    "name": "llehouerou",
+    "ns": 199107100,
+    "bytes": 116859,
+    "allocs": 3467
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 3,
+    "name": "baseline",
+    "ns": 681509500,
+    "bytes": 197796017,
+    "allocs": 475846
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 3,
+    "name": "previous",
+    "ns": 860808240,
+    "bytes": 11616193,
+    "allocs": 20707
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 4,
+    "name": "asvedr",
+    "ns": 275385400,
+    "bytes": 179707,
+    "allocs": 6925
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 4,
+    "name": "llehouerou",
+    "ns": 200471060,
+    "bytes": 116849,
+    "allocs": 3466
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 4,
+    "name": "baseline",
+    "ns": 706899660,
+    "bytes": 197795553,
+    "allocs": 475841
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 4,
+    "name": "previous",
+    "ns": 858437220,
+    "bytes": 11615174,
+    "allocs": 20706
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 4,
+    "name": "ours",
+    "ns": 186132960,
+    "bytes": 217483,
+    "allocs": 6928
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 5,
+    "name": "llehouerou",
+    "ns": 200352100,
+    "bytes": 116849,
+    "allocs": 3466
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 5,
+    "name": "baseline",
+    "ns": 734935740,
+    "bytes": 197794390,
+    "allocs": 475840
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 5,
+    "name": "previous",
+    "ns": 835253100,
+    "bytes": 11615187,
+    "allocs": 20706
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 5,
+    "name": "ours",
+    "ns": 187473140,
+    "bytes": 217480,
+    "allocs": 6928
+  },
+  {
+    "file": "pink90.mp3",
+    "round": 5,
+    "name": "asvedr",
+    "ns": 278317160,
+    "bytes": 179704,
+    "allocs": 6925
+  },
+  {
+    "file": "classic.mp3",
+    "round": 1,
+    "name": "baseline",
+    "ns": 4619663833,
+    "bytes": 770063936,
+    "allocs": 1877773
+  },
+  {
+    "file": "classic.mp3",
+    "round": 1,
+    "name": "previous",
+    "ns": 4519347333,
+    "bytes": 35189653,
+    "allocs": 81781
+  },
+  {
+    "file": "classic.mp3",
+    "round": 1,
+    "name": "ours",
+    "ns": 940658367,
+    "bytes": 576018,
+    "allocs": 27369
+  },
+  {
+    "file": "classic.mp3",
+    "round": 1,
+    "name": "asvedr",
+    "ns": 1598387267,
+    "bytes": 538242,
+    "allocs": 27366
+  },
+  {
+    "file": "classic.mp3",
+    "round": 1,
+    "name": "llehouerou",
+    "ns": 961024867,
+    "bytes": 159661,
+    "allocs": 13752
+  },
+  {
+    "file": "classic.mp3",
+    "round": 2,
+    "name": "previous",
+    "ns": 4292464567,
+    "bytes": 35189562,
+    "allocs": 81781
+  },
+  {
+    "file": "classic.mp3",
+    "round": 2,
+    "name": "ours",
+    "ns": 830010567,
+    "bytes": 576018,
+    "allocs": 27369
+  },
+  {
+    "file": "classic.mp3",
+    "round": 2,
+    "name": "asvedr",
+    "ns": 1324915867,
+    "bytes": 538242,
+    "allocs": 27366
+  },
+  {
+    "file": "classic.mp3",
+    "round": 2,
+    "name": "llehouerou",
+    "ns": 938327467,
+    "bytes": 159666,
+    "allocs": 13752
+  },
+  {
+    "file": "classic.mp3",
+    "round": 2,
+    "name": "baseline",
+    "ns": 3970903700,
+    "bytes": 770064224,
+    "allocs": 1877776
+  },
+  {
+    "file": "classic.mp3",
+    "round": 3,
+    "name": "ours",
+    "ns": 829914667,
+    "bytes": 576018,
+    "allocs": 27369
+  },
+  {
+    "file": "classic.mp3",
+    "round": 3,
+    "name": "asvedr",
+    "ns": 1386942433,
+    "bytes": 538242,
+    "allocs": 27366
+  },
+  {
+    "file": "classic.mp3",
+    "round": 3,
+    "name": "llehouerou",
+    "ns": 972651533,
+    "bytes": 159666,
+    "allocs": 13752
+  },
+  {
+    "file": "classic.mp3",
+    "round": 3,
+    "name": "baseline",
+    "ns": 3846363567,
+    "bytes": 770066354,
+    "allocs": 1877781
+  },
+  {
+    "file": "classic.mp3",
+    "round": 3,
+    "name": "previous",
+    "ns": 3982565000,
+    "bytes": 35189525,
+    "allocs": 81780
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 1,
+    "name": "baseline",
+    "ns": 156003533,
+    "bytes": 105569837,
+    "allocs": 131031
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 1,
+    "name": "previous",
+    "ns": 166848900,
+    "bytes": 4908586,
+    "allocs": 27640
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 1,
+    "name": "ours",
+    "ns": 40595300,
+    "bytes": 1595370,
+    "allocs": 16869
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 1,
+    "name": "asvedr",
+    "ns": 59675500,
+    "bytes": 1557416,
+    "allocs": 16865
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 1,
+    "name": "llehouerou",
+    "ns": 43967933,
+    "bytes": 109013,
+    "allocs": 2892
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 2,
+    "name": "previous",
+    "ns": 167481033,
+    "bytes": 4910216,
+    "allocs": 27642
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 2,
+    "name": "ours",
+    "ns": 40581100,
+    "bytes": 1595376,
+    "allocs": 16869
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 2,
+    "name": "asvedr",
+    "ns": 58682067,
+    "bytes": 1560154,
+    "allocs": 16866
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 2,
+    "name": "llehouerou",
+    "ns": 43254867,
+    "bytes": 111752,
+    "allocs": 2893
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 2,
+    "name": "baseline",
+    "ns": 155724900,
+    "bytes": 105574066,
+    "allocs": 131032
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 3,
+    "name": "ours",
+    "ns": 40806667,
+    "bytes": 1595445,
+    "allocs": 16869
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 3,
+    "name": "asvedr",
+    "ns": 60569400,
+    "bytes": 1561853,
+    "allocs": 16868
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 3,
+    "name": "llehouerou",
+    "ns": 43786633,
+    "bytes": 111752,
+    "allocs": 2893
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 3,
+    "name": "baseline",
+    "ns": 164038967,
+    "bytes": 105575856,
+    "allocs": 131031
+  },
+  {
+    "file": "mpeg2.mp3",
+    "round": 3,
+    "name": "previous",
+    "ns": 165453700,
+    "bytes": 4910216,
+    "allocs": 27642
+  }
+]

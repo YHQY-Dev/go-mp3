@@ -1,0 +1,10 @@
+=== RUN   TestLocalAudioStudy
+{"advance_s":15.02,"audio_error":"\u003cnil\u003e","cpu_cycles_s":54944106.922539264,"cpu_one_core_percent":0.936427372387723,"decoder_errors":0,"errors":false,"file":"pink90.mp3","go_alloc_bytes_s":12767.24247133535,"go_allocs_s":932.6650153004408,"nonzero_pcm":true,"pause_drift_s":0,"private_commit_mib":50.8060546875,"seek_progress_s":0.4538544,"spectrum_valid":true,"variant":"all","wall_s":15.0171817,"working_set_mib":22.433919270833332}
+--- PASS: TestLocalAudioStudy (19.49s)
+=== RUN   TestLocalAudioStudy
+{"advance_s":15.02,"audio_error":"\u003cnil\u003e","cpu_cycles_s":72626446.54929088,"cpu_one_core_percent":1.5604586080489504,"decoder_errors":0,"errors":false,"file":"pink90.mp3","go_alloc_bytes_s":12404.039701928605,"go_allocs_s":930.9820892308683,"nonzero_pcm":true,"pause_drift_s":0,"private_commit_mib":51.75462239583333,"seek_progress_s":0.4565206,"spectrum_valid":true,"variant":"all","wall_s":15.019623,"working_set_mib":23.672591145833334}
+--- PASS: TestLocalAudioStudy (19.72s)
+=== RUN   TestLocalAudioStudy
+{"advance_s":15.02,"audio_error":"\u003cnil\u003e","cpu_cycles_s":61402945.42193226,"cpu_one_core_percent":1.0403863325662661,"decoder_errors":0,"errors":false,"file":"pink90.mp3","go_alloc_bytes_s":12403.935303750693,"go_allocs_s":931.1207983748267,"nonzero_pcm":true,"pause_drift_s":0,"private_commit_mib":52.6015625,"seek_progress_s":0.4542886,"spectrum_valid":true,"variant":"all","wall_s":15.0184595,"working_set_mib":24.6359375}
+--- PASS: TestLocalAudioStudy (19.73s)
+PASS

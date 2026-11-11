@@ -1,0 +1,137 @@
+[
+  {
+    "file": "pink90.mp3",
+    "name": "baseline",
+    "ms": 696.48584,
+    "min": 681.5095,
+    "max": 734.93574,
+    "bytes": 197795672,
+    "allocs": 475843
+  },
+  {
+    "file": "pink90.mp3",
+    "name": "previous",
+    "ms": 835.2531,
+    "min": 737.00318,
+    "max": 860.80824,
+    "bytes": 11616193,
+    "allocs": 20707
+  },
+  {
+    "file": "pink90.mp3",
+    "name": "ours",
+    "ms": 185.95782,
+    "min": 184.72068,
+    "max": 187.47314,
+    "bytes": 217480,
+    "allocs": 6928
+  },
+  {
+    "file": "pink90.mp3",
+    "name": "asvedr",
+    "ms": 272.30562,
+    "min": 267.32532,
+    "max": 278.31716,
+    "bytes": 179707,
+    "allocs": 6925
+  },
+  {
+    "file": "pink90.mp3",
+    "name": "llehouerou",
+    "ms": 200.3521,
+    "min": 199.1071,
+    "max": 201.1674,
+    "bytes": 116849,
+    "allocs": 3466
+  },
+  {
+    "file": "classic.mp3",
+    "name": "baseline",
+    "ms": 3970.9037,
+    "min": 3846.363567,
+    "max": 4619.663833,
+    "bytes": 770064224,
+    "allocs": 1877776
+  },
+  {
+    "file": "classic.mp3",
+    "name": "previous",
+    "ms": 4292.464567,
+    "min": 3982.565,
+    "max": 4519.347333,
+    "bytes": 35189562,
+    "allocs": 81781
+  },
+  {
+    "file": "classic.mp3",
+    "name": "ours",
+    "ms": 830.010567,
+    "min": 829.914667,
+    "max": 940.658367,
+    "bytes": 576018,
+    "allocs": 27369
+  },
+  {
+    "file": "classic.mp3",
+    "name": "asvedr",
+    "ms": 1386.942433,
+    "min": 1324.915867,
+    "max": 1598.387267,
+    "bytes": 538242,
+    "allocs": 27366
+  },
+  {
+    "file": "classic.mp3",
+    "name": "llehouerou",
+    "ms": 961.024867,
+    "min": 938.327467,
+    "max": 972.651533,
+    "bytes": 159666,
+    "allocs": 13752
+  },
+  {
+    "file": "mpeg2.mp3",
+    "name": "baseline",
+    "ms": 156.003533,
+    "min": 155.7249,
+    "max": 164.038967,
+    "bytes": 105574066,
+    "allocs": 131031
+  },
+  {
+    "file": "mpeg2.mp3",
+    "name": "previous",
+    "ms": 166.8489,
+    "min": 165.4537,
+    "max": 167.481033,
+    "bytes": 4910216,
+    "allocs": 27642
+  },
+  {
+    "file": "mpeg2.mp3",
+    "name": "ours",
+    "ms": 40.5953,
+    "min": 40.5811,
+    "max": 40.806667,
+    "bytes": 1595376,
+    "allocs": 16869
+  },
+  {
+    "file": "mpeg2.mp3",
+    "name": "asvedr",
+    "ms": 59.6755,
+    "min": 58.682067,
+    "max": 60.5694,
+    "bytes": 1560154,
+    "allocs": 16866
+  },
+  {
+    "file": "mpeg2.mp3",
+    "name": "llehouerou",
+    "ms": 43.786633,
+    "min": 43.254867,
+    "max": 43.967933,
+    "bytes": 111752,
+    "allocs": 2893
+  }
+]
