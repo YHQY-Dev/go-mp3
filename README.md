@@ -35,7 +35,7 @@ These tests establish exact agreement for the tested corpus and scalar kernels, 
 
 ```sh
 # Complete decode throughput, not realtime playback CPU usage:
-go test -run '^$' -bench BenchmarkDecode -benchmem -count=5
+go test -run '^$' -bench '^BenchmarkDecodeStream$' -benchmem -count=5
 # Optional: MP3_FILE=/path/to/file.mp3
 ```
 

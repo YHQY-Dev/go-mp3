@@ -134,7 +134,7 @@ func TestPCMRegression(t *testing.T) {
 }
 
 // Benchmark complete decoding without audio-device waits or retaining PCM.
-func BenchmarkDecode(b *testing.B) {
+func BenchmarkDecodeStream(b *testing.B) {
 	file := os.Getenv("MP3_FILE")
 	if file == "" {
 		file = "example/classic.mp3"
