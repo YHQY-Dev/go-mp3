@@ -1,0 +1,418 @@
+[
+  {
+    "File": "classic.mp3",
+    "Mode": "parallel",
+    "Hash": "85a7db6e20092b110bf0a7021220da2bfccd68e532a34a9ffa336c06937f7cda",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 62696448,
+    "Seeks": null
+  },
+  {
+    "File": "classic.mp3",
+    "Mode": "seekable",
+    "Hash": "85a7db6e20092b110bf0a7021220da2bfccd68e532a34a9ffa336c06937f7cda",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": 62696448,
+    "Bytes": 62696448,
+    "Seeks": [
+      "20898816:12000:45753e4826f93ab46ccb7fee5a455a2cf255baf643665961ea4198a03397b671:\u003cnil\u003e",
+      "0:12000:1efc037236a7e8dfe543ec6e94f2b218f19e2fb3a9ea452d29bca9e0029ead1a:\u003cnil\u003e",
+      "10000:12000:aa5c06a9d0d3e2eaac2b17f983e5fbd722b462e9491c829dd2ea7b67bb668e46:\u003cnil\u003e",
+      "31348224:12000:48f225217f12ecd7815b079ac9afdfbaae30915083509e5395bc9faf280a0b6d:\u003cnil\u003e",
+      "0:12000:1efc037236a7e8dfe543ec6e94f2b218f19e2fb3a9ea452d29bca9e0029ead1a:\u003cnil\u003e"
+    ]
+  },
+  {
+    "File": "classic.mp3",
+    "Mode": "short",
+    "Hash": "85a7db6e20092b110bf0a7021220da2bfccd68e532a34a9ffa336c06937f7cda",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 62696448,
+    "Seeks": null
+  },
+  {
+    "File": "classic.mp3",
+    "Mode": "stream",
+    "Hash": "85a7db6e20092b110bf0a7021220da2bfccd68e532a34a9ffa336c06937f7cda",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 62696448,
+    "Seeks": null
+  },
+  {
+    "File": "classic.mp3-cut-100",
+    "Mode": "stream",
+    "Hash": "",
+    "End": "open:*errors.errorString:EOF",
+    "Rate": 0,
+    "Length": 0,
+    "Bytes": 0,
+    "Seeks": null
+  },
+  {
+    "File": "classic.mp3-cut-11374587",
+    "Mode": "stream",
+    "Hash": "85a7db6e20092b110bf0a7021220da2bfccd68e532a34a9ffa336c06937f7cda",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 62696448,
+    "Seeks": null
+  },
+  {
+    "File": "classic.mp3-cut-5687329",
+    "Mode": "stream",
+    "Hash": "5171d913e0e84852a6cd4058dc47d250ecfe641702e69e71db750bfbc1167829",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 31343616,
+    "Seeks": null
+  },
+  {
+    "File": "mpeg2.mp3",
+    "Mode": "seekable",
+    "Hash": "4a0c65b0b2d6069b06206bf4dd15f23dcbfa27f2b8b82b35eadd0fa9f3ad3028",
+    "End": "*errors.errorString:EOF",
+    "Rate": 22050,
+    "Length": 6617088,
+    "Bytes": 6617088,
+    "Seeks": [
+      "2205696:12000:4e81a1c1041c028a7ccdafde5e558f8a1c77cc39460979f24db6147c1321b502:\u003cnil\u003e",
+      "0:12000:92b85d54676e9dc81bf56d7952bbf8dc20befc58063b25bde520f1ef770d9910:\u003cnil\u003e",
+      "10000:12000:25bd364e3e33a40100c69da6ce263722f813fcffb669f30f9c25859fc7bcaeb6:\u003cnil\u003e",
+      "3308544:12000:8499151ce34d83bed8180519f273f0a146dd4685fbcfab72e3c70890fc6ca0ec:\u003cnil\u003e",
+      "0:12000:92b85d54676e9dc81bf56d7952bbf8dc20befc58063b25bde520f1ef770d9910:\u003cnil\u003e"
+    ]
+  },
+  {
+    "File": "mpeg2.mp3",
+    "Mode": "short",
+    "Hash": "4a0c65b0b2d6069b06206bf4dd15f23dcbfa27f2b8b82b35eadd0fa9f3ad3028",
+    "End": "*errors.errorString:EOF",
+    "Rate": 22050,
+    "Length": -1,
+    "Bytes": 6617088,
+    "Seeks": null
+  },
+  {
+    "File": "mpeg2.mp3",
+    "Mode": "stream",
+    "Hash": "4a0c65b0b2d6069b06206bf4dd15f23dcbfa27f2b8b82b35eadd0fa9f3ad3028",
+    "End": "*errors.errorString:EOF",
+    "Rate": 22050,
+    "Length": -1,
+    "Bytes": 6617088,
+    "Seeks": null
+  },
+  {
+    "File": "mpeg2.mp3-cut-100",
+    "Mode": "stream",
+    "Hash": "",
+    "End": "open:*errors.errorString:EOF",
+    "Rate": 0,
+    "Length": 0,
+    "Bytes": 0,
+    "Seeks": null
+  },
+  {
+    "File": "mpeg2.mp3-cut-225093",
+    "Mode": "stream",
+    "Hash": "62c4bb342cc76d7af853c3e4c7c1aac6bc98bc7c2c813d2ddfe757d30fcbcce6",
+    "End": "*errors.errorString:EOF",
+    "Rate": 22050,
+    "Length": -1,
+    "Bytes": 3306240,
+    "Seeks": null
+  },
+  {
+    "File": "mpeg2.mp3-cut-450116",
+    "Mode": "stream",
+    "Hash": "a4d0271b1cf3e7a70f36fcbc047cdb538c9f4eb16630f5670670b8eb1e693993",
+    "End": "*errors.errorString:EOF",
+    "Rate": 22050,
+    "Length": -1,
+    "Bytes": 6614784,
+    "Seeks": null
+  },
+  {
+    "File": "pink90.mp3",
+    "Mode": "seekable",
+    "Hash": "159e233db860dbaa235d8b7b08e0026599860dcb508f661b56e8b6ef847aceac",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": 15888384,
+    "Bytes": 15888384,
+    "Seeks": [
+      "5296128:12000:f7788f159e1eeedc2030fc2edce72261c84ab6262b980f1db9853414047743b2:\u003cnil\u003e",
+      "0:12000:bef73fc3c3a5d3744a00ead3203b0c83fa75cbf8a1ac0b3b6e13d33b64e2fc8b:\u003cnil\u003e",
+      "10000:12000:28736a050e5079f17e5470f2dcb98bb6dd03764b4f5d1639b3282b606a6bc02e:\u003cnil\u003e",
+      "7944192:12000:35e8f497398f333552e3f99c2150ed388f10b119b8b7bc67e1a34c6cdb809a93:\u003cnil\u003e",
+      "0:12000:bef73fc3c3a5d3744a00ead3203b0c83fa75cbf8a1ac0b3b6e13d33b64e2fc8b:\u003cnil\u003e"
+    ]
+  },
+  {
+    "File": "pink90.mp3",
+    "Mode": "short",
+    "Hash": "159e233db860dbaa235d8b7b08e0026599860dcb508f661b56e8b6ef847aceac",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 15888384,
+    "Seeks": null
+  },
+  {
+    "File": "pink90.mp3",
+    "Mode": "stream",
+    "Hash": "159e233db860dbaa235d8b7b08e0026599860dcb508f661b56e8b6ef847aceac",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 15888384,
+    "Seeks": null
+  },
+  {
+    "File": "pink90.mp3-cut-100",
+    "Mode": "stream",
+    "Hash": "",
+    "End": "open:*errors.errorString:EOF",
+    "Rate": 0,
+    "Length": 0,
+    "Bytes": 0,
+    "Seeks": null
+  },
+  {
+    "File": "pink90.mp3-cut-1801425",
+    "Mode": "stream",
+    "Hash": "37ae5ee382202500f9adfd6b024db16bbc1afc7abd904412a3bf3a9a2f5882b1",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 7939584,
+    "Seeks": null
+  },
+  {
+    "File": "pink90.mp3-cut-3602780",
+    "Mode": "stream",
+    "Hash": "a3719996cbeda0cdb9f336c4fd62f80d4196aa9371d58013e6d8102b792cdc22",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 15883776,
+    "Seeks": null
+  },
+  {
+    "File": "transient-mono-22050.mp3",
+    "Mode": "seekable",
+    "Hash": "a938dcfca1f8f019dab10c534b8643460f560d0b92257876c60571f40b849c1f",
+    "End": "*errors.errorString:EOF",
+    "Rate": 22050,
+    "Length": 714240,
+    "Bytes": 714240,
+    "Seeks": [
+      "238080:12000:4ede980dab8441923c230aacb2f37668c02d412b81aa281eed8610b8c8a3273b:\u003cnil\u003e",
+      "0:12000:b547539524c3596711dea3788a7966ed03a6f23a9eaaaaf0afb0806b6b0d3be1:\u003cnil\u003e",
+      "10000:12000:89b04a68e36611809205f3aa97fdd8a6e876631c614c41a0aab5ce18a6452cc3:\u003cnil\u003e",
+      "357120:12000:ff2376d3a3dc241c22b93e5a281a8eb0137f2f5efacb959ac8d4e85595f31bed:\u003cnil\u003e",
+      "0:12000:b547539524c3596711dea3788a7966ed03a6f23a9eaaaaf0afb0806b6b0d3be1:\u003cnil\u003e"
+    ]
+  },
+  {
+    "File": "transient-mono-22050.mp3",
+    "Mode": "short",
+    "Hash": "a938dcfca1f8f019dab10c534b8643460f560d0b92257876c60571f40b849c1f",
+    "End": "*errors.errorString:EOF",
+    "Rate": 22050,
+    "Length": -1,
+    "Bytes": 714240,
+    "Seeks": null
+  },
+  {
+    "File": "transient-mono-22050.mp3",
+    "Mode": "stream",
+    "Hash": "a938dcfca1f8f019dab10c534b8643460f560d0b92257876c60571f40b849c1f",
+    "End": "*errors.errorString:EOF",
+    "Rate": 22050,
+    "Length": -1,
+    "Bytes": 714240,
+    "Seeks": null
+  },
+  {
+    "File": "transient-mono-22050.mp3-cut-100",
+    "Mode": "stream",
+    "Hash": "",
+    "End": "open:*errors.errorString:EOF",
+    "Rate": 0,
+    "Length": 0,
+    "Bytes": 0,
+    "Seeks": null
+  },
+  {
+    "File": "transient-mono-22050.mp3-cut-32413",
+    "Mode": "stream",
+    "Hash": "2964e44a507a5b5ac654392b0780a337744c5428ec98c7c1d9981300c7369c1f",
+    "End": "*errors.errorString:EOF",
+    "Rate": 22050,
+    "Length": -1,
+    "Bytes": 354816,
+    "Seeks": null
+  },
+  {
+    "File": "transient-mono-22050.mp3-cut-64755",
+    "Mode": "stream",
+    "Hash": "9e34e83b8f77dd261115da70929f4332d226b02bb91e6b85fdac833b4aa8ca15",
+    "End": "*errors.errorString:EOF",
+    "Rate": 22050,
+    "Length": -1,
+    "Bytes": 711936,
+    "Seeks": null
+  },
+  {
+    "File": "transient-stereo-44100.mp3",
+    "Mode": "seekable",
+    "Hash": "87a55de51c9c05be16f1be5e9bbef8efe92911b86b0db74f5dd5460256538938",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": 1423872,
+    "Bytes": 1423872,
+    "Seeks": [
+      "474624:12000:fc5e92dba1e49562b247d3b6b1232defc7297381af488382b95b17d96d4fed64:\u003cnil\u003e",
+      "0:12000:b9716ded0342079e4dd8a402b9041a5c58a4fe3f78dd17bea8f461487d87c1a2:\u003cnil\u003e",
+      "10000:12000:bec113ae49e369a8b68231614a92ae93630a0cdfc81f7e95b5afcd299f05564c:\u003cnil\u003e",
+      "711936:12000:7d5500a25d6cf2aa2d532772ae19689d8203b64a0ca946d3452611ec31093d7a:\u003cnil\u003e",
+      "0:12000:b9716ded0342079e4dd8a402b9041a5c58a4fe3f78dd17bea8f461487d87c1a2:\u003cnil\u003e"
+    ]
+  },
+  {
+    "File": "transient-stereo-44100.mp3",
+    "Mode": "short",
+    "Hash": "87a55de51c9c05be16f1be5e9bbef8efe92911b86b0db74f5dd5460256538938",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 1423872,
+    "Seeks": null
+  },
+  {
+    "File": "transient-stereo-44100.mp3",
+    "Mode": "stream",
+    "Hash": "87a55de51c9c05be16f1be5e9bbef8efe92911b86b0db74f5dd5460256538938",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 1423872,
+    "Seeks": null
+  },
+  {
+    "File": "transient-stereo-44100.mp3-cut-100",
+    "Mode": "stream",
+    "Hash": "",
+    "End": "open:*errors.errorString:EOF",
+    "Rate": 0,
+    "Length": 0,
+    "Bytes": 0,
+    "Seeks": null
+  },
+  {
+    "File": "transient-stereo-44100.mp3-cut-129121",
+    "Mode": "stream",
+    "Hash": "571fe2700b0323ad7a9933c5f8e5b27e037369c491d39ca09d662df91a648f23",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 1419264,
+    "Seeks": null
+  },
+  {
+    "File": "transient-stereo-44100.mp3-cut-64596",
+    "Mode": "stream",
+    "Hash": "47746ae9c90eb5202d00b3489eef07540bf02bf74641fdaec29e3470778b69ce",
+    "End": "*errors.errorString:EOF",
+    "Rate": 44100,
+    "Length": -1,
+    "Bytes": 709632,
+    "Seeks": null
+  },
+  {
+    "File": "transient-vbr-48000.mp3",
+    "Mode": "parallel",
+    "Hash": "55e3a444f65939d4b22a1cd6d301decb60fdf52c8cbf37eadbf0ac023e297ee2",
+    "End": "*errors.errorString:EOF",
+    "Rate": 48000,
+    "Length": -1,
+    "Bytes": 1548288,
+    "Seeks": null
+  },
+  {
+    "File": "transient-vbr-48000.mp3",
+    "Mode": "seekable",
+    "Hash": "55e3a444f65939d4b22a1cd6d301decb60fdf52c8cbf37eadbf0ac023e297ee2",
+    "End": "*errors.errorString:EOF",
+    "Rate": 48000,
+    "Length": 1548288,
+    "Bytes": 1548288,
+    "Seeks": [
+      "516096:12000:14ca40456c76129a59a01b6ad17f0d3c893c798a03523dc02d90264caedc73fa:\u003cnil\u003e",
+      "0:12000:1411d828e1dd48791d07b484cf7fb50d95477c3b1de0a7c2b8b72a0c36da6334:\u003cnil\u003e",
+      "10000:12000:f1d7d3b4e7f8c00a19c65f65c3bf80c378b5d566edbacd1bdf171ba0907d6caf:\u003cnil\u003e",
+      "774144:12000:d5a2c0c4872d4cd88968184e16d239367062e1f3de61e64619756b41142e435b:\u003cnil\u003e",
+      "0:12000:1411d828e1dd48791d07b484cf7fb50d95477c3b1de0a7c2b8b72a0c36da6334:\u003cnil\u003e"
+    ]
+  },
+  {
+    "File": "transient-vbr-48000.mp3",
+    "Mode": "short",
+    "Hash": "55e3a444f65939d4b22a1cd6d301decb60fdf52c8cbf37eadbf0ac023e297ee2",
+    "End": "*errors.errorString:EOF",
+    "Rate": 48000,
+    "Length": -1,
+    "Bytes": 1548288,
+    "Seeks": null
+  },
+  {
+    "File": "transient-vbr-48000.mp3",
+    "Mode": "stream",
+    "Hash": "55e3a444f65939d4b22a1cd6d301decb60fdf52c8cbf37eadbf0ac023e297ee2",
+    "End": "*errors.errorString:EOF",
+    "Rate": 48000,
+    "Length": -1,
+    "Bytes": 1548288,
+    "Seeks": null
+  },
+  {
+    "File": "transient-vbr-48000.mp3-cut-100",
+    "Mode": "stream",
+    "Hash": "",
+    "End": "open:*errors.errorString:EOF",
+    "Rate": 0,
+    "Length": 0,
+    "Bytes": 0,
+    "Seeks": null
+  },
+  {
+    "File": "transient-vbr-48000.mp3-cut-20590",
+    "Mode": "stream",
+    "Hash": "a9771d0371e15cabc5628319f8a795d8a16ae198109d419cee031569251d6c6b",
+    "End": "*errors.errorString:EOF",
+    "Rate": 48000,
+    "Length": -1,
+    "Bytes": 760320,
+    "Seeks": null
+  },
+  {
+    "File": "transient-vbr-48000.mp3-cut-41109",
+    "Mode": "stream",
+    "Hash": "09170a722c14b158ab1b8f02464592af0b935a9eb3883eb77110d287dffc22b9",
+    "End": "*errors.errorString:EOF",
+    "Rate": 48000,
+    "Length": -1,
+    "Bytes": 1543680,
+    "Seeks": null
+  }
+]
