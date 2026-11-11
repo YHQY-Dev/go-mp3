@@ -280,28 +280,29 @@ func read(source FullReader, prev *bits.Bits, size int, offset int) (*bits.Bits,
 		// No, there is not, so we skip decoding this frame, but we have to
 		// read the main_data bits from the bitstream in case they are needed
 		// for decoding the next frame.
-		buf := make([]byte, size)
+		buf := prev.Extend(size)
 		if n, err := source.ReadFull(buf); n < size {
 			if err == io.EOF {
-				return nil, &consts.UnexpectedEOF{"maindata.Read (1)"}
+				return nil, &consts.UnexpectedEOF{At: "maindata.Read (1)"}
 			}
 			return nil, err
 		}
 		// TODO: Define a special error and enable to continue the next frame.
-		return bits.Append(prev, buf), nil
+		return prev, nil
 	}
-	// Copy data from previous frames
-	vec := []byte{}
-	if prev != nil {
-		vec = prev.Tail(offset)
+	// Keep the reservoir in decoder-owned storage (asvedr/go-mp3 approach).
+	var buf []byte
+	if prev == nil {
+		buf = make([]byte, size)
+		prev = bits.New(buf)
+	} else {
+		buf = prev.Reuse(offset, size)
 	}
-	// Read the main_data from file
-	buf := make([]byte, size)
 	if n, err := source.ReadFull(buf); n < size {
 		if err == io.EOF {
-			return nil, &consts.UnexpectedEOF{"maindata.Read (2)"}
+			return nil, &consts.UnexpectedEOF{At: "maindata.Read (2)"}
 		}
 		return nil, err
 	}
-	return bits.New(append(vec, buf...)), nil
+	return prev, nil
 }

@@ -62,7 +62,7 @@ var sideInfoBitsToRead = [2][4]int{
 	},
 }
 
-func Read(source FullReader, header frameheader.FrameHeader) (*SideInfo, error) {
+func Read(source FullReader, header frameheader.FrameHeader, si *SideInfo) (*SideInfo, error) {
 	nch := header.NumberOfChannels()
 	framesize, err := header.FrameSize()
 	if err != nil {
@@ -84,7 +84,7 @@ func Read(source FullReader, header frameheader.FrameHeader) (*SideInfo, error) 
 	n, err := source.ReadFull(buf)
 	if n < sideinfo_size {
 		if err == io.EOF {
-			return nil, &consts.UnexpectedEOF{"sideinfo.Read"}
+			return nil, &consts.UnexpectedEOF{At: "sideinfo.Read"}
 		}
 		return nil, fmt.Errorf("mp3: couldn't read sideinfo %d bytes: %v", sideinfo_size, err)
 	}
@@ -95,7 +95,11 @@ func Read(source FullReader, header frameheader.FrameHeader) (*SideInfo, error) 
 
 	// Parse audio data
 	// Pointer to where we should start reading main data
-	si := &SideInfo{}
+	if si == nil {
+		si = &SideInfo{}
+	} else {
+		*si = SideInfo{}
+	}
 	si.MainDataBegin = s.Bits(bitsToRead[0])
 	// Get private bits. Not used for anything.
 	if header.Mode() == consts.ModeSingleChannel {

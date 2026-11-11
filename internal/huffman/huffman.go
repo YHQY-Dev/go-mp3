@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Lookup decoder adapted from asvedr/go-mp3 (Apache-2.0).
+// See OPTIMIZATIONS.md for provenance and validation requirements.
 package huffman
 
 import (
@@ -345,6 +347,68 @@ var huffmanMain = [...]huffTables{
 	{huffmanTable[2773:], 31, 0},   // Table 33
 }
 
+// lutBits is the number of bits resolved by a single lookup in lutMain.
+// Codewords longer than lutBits fall back to the tree walk.
+const lutBits = 9
+
+// lutMain maps, per Huffman table, the next lutBits bits of the stream to a
+// decoded codeword: bit 15 set means resolved, bits 8-11 hold the codeword
+// length, bits 0-7 hold the leaf value (x<<4 | y). A zero entry means the
+// codeword is longer than lutBits (or hits an error path) and the tree walk
+// must be used.
+var lutMain = [len(huffmanMain)][]uint16{}
+
+func init() {
+	built := map[*uint16][]uint16{}
+	for tn := range huffmanMain {
+		ht := huffmanMain[tn].hufftable
+		if ht == nil {
+			continue
+		}
+		if lut, ok := built[&ht[0]]; ok { // Trees shared between tables
+			lutMain[tn] = lut
+			continue
+		}
+		lut := buildLUT(ht, huffmanMain[tn].treelen)
+		built[&ht[0]] = lut
+		lutMain[tn] = lut
+	}
+}
+
+// buildLUT walks the tree for every possible lutBits-bit prefix, mirroring
+// the walk in Decode exactly.
+func buildLUT(htptr []uint16, treelen int) []uint16 {
+	lut := make([]uint16, 1<<lutBits)
+	for w := 0; w < 1<<lutBits; w++ {
+		point := 0
+		depth := 0
+		for {
+			if (htptr[point] & 0xff00) == 0 {
+				lut[w] = 0x8000 | uint16(depth)<<8 | htptr[point]&0xff
+				break
+			}
+			if depth == lutBits || point >= treelen {
+				// Longer codeword or error path: leave the zero entry so
+				// that Decode falls back to the tree walk.
+				break
+			}
+			if (w>>uint(lutBits-1-depth))&1 != 0 { // Go right in tree
+				for (htptr[point] & 0xff) >= 250 {
+					point += int(htptr[point]) & 0xff
+				}
+				point += int(htptr[point]) & 0xff
+			} else { // Go left in tree
+				for (htptr[point] >> 8) >= 250 {
+					point += int(htptr[point]) >> 8
+				}
+				point += int(htptr[point]) >> 8
+			}
+			depth++
+		}
+	}
+	return lut
+}
+
 func Decode(m *bits.Bits, table_num int) (x, y, v, w int, err error) {
 	point := 0
 	error := 1
@@ -355,30 +419,52 @@ func Decode(m *bits.Bits, table_num int) (x, y, v, w int, err error) {
 		return 0, 0, 0, 0, nil
 	}
 	htptr := huffmanMain[table_num].hufftable
-	for { // Start reading the Huffman code word,bit by bit
-		// Check if we've matched a code word
-		if (htptr[point] & 0xff00) == 0 {
-			error = 0
-			x = int((htptr[point] >> 4) & 0xf)
-			y = int(htptr[point] & 0xf)
-			break
-		}
-		if m.Bit() != 0 { // Go right in tree
-			for (htptr[point] & 0xff) >= 250 {
-				point += int(htptr[point]) & 0xff
+	// Read the Huffman code word bit by bit from a local 32-bit window
+	// instead of consuming the bit reader once per bit. The window is
+	// zero-padded past the end of the data, just like Bits.Bit there.
+	win := m.Peek32()
+	avail := m.AvailBits()
+	read := 0
+	if e := lutMain[table_num][win>>(32-lutBits)]; e&0x8000 != 0 {
+		// Fast path: the whole codeword was resolved by the lookup table.
+		error = 0
+		x = int(e>>4) & 0xf
+		y = int(e) & 0xf
+		read = int(e>>8) & 0xf
+	} else {
+		for {
+			// Check if we've matched a code word
+			if (htptr[point] & 0xff00) == 0 {
+				error = 0
+				x = int((htptr[point] >> 4) & 0xf)
+				y = int(htptr[point] & 0xf)
+				break
 			}
-			point += int(htptr[point]) & 0xff
-		} else { // Go left in tree
-			for (htptr[point] >> 8) >= 250 {
+			if win&0x80000000 != 0 { // Go right in tree
+				for (htptr[point] & 0xff) >= 250 {
+					point += int(htptr[point]) & 0xff
+				}
+				point += int(htptr[point]) & 0xff
+			} else { // Go left in tree
+				for (htptr[point] >> 8) >= 250 {
+					point += int(htptr[point]) >> 8
+				}
 				point += int(htptr[point]) >> 8
 			}
-			point += int(htptr[point]) >> 8
-		}
-		bitsleft--
-		if bitsleft <= 0 || point >= treelen {
-			break
+			win <<= 1
+			read++
+			bitsleft--
+			if bitsleft <= 0 || point >= treelen {
+				break
+			}
 		}
 	}
+	// Bits past the end of the data don't advance the position (Bit would
+	// have returned 0 without moving there).
+	if read > avail {
+		read = avail
+	}
+	m.SetPos(m.BitPos() + read)
 	if error != 0 { // Check for error.
 		err := fmt.Errorf("mp3: illegal Huff code in data. bleft = %d, point = %d. tab = %d.",
 			bitsleft, point, table_num)

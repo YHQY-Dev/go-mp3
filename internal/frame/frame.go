@@ -56,7 +56,7 @@ func readCRC(source FullReader) error {
 	buf := make([]byte, 2)
 	if n, err := source.ReadFull(buf); n < 2 {
 		if err == io.EOF {
-			return &consts.UnexpectedEOF{"readCRC"}
+			return &consts.UnexpectedEOF{At: "readCRC"}
 		}
 		return fmt.Errorf("mp3: error at readCRC: %v", err)
 	}
@@ -82,7 +82,11 @@ func Read(source FullReader, position int64, prev *Frame) (frame *Frame, startPo
 		return nil, 0, fmt.Errorf("mp3: only layer3 (want %d; got %d) is supported", consts.Layer3, h.Layer())
 	}
 
-	si, err := sideinfo.Read(source, h)
+	var previousSideInfo *sideinfo.SideInfo
+	if prev != nil {
+		previousSideInfo = prev.sideInfo
+	}
+	si, err := sideinfo.Read(source, h, previousSideInfo)
 	if err != nil {
 		return nil, 0, err
 	}
